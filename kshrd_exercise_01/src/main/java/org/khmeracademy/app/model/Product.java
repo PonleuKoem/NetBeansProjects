@@ -13,7 +13,7 @@ public class Product {
     private int id;
     private String name;
     private int price;
-    public boolean toString;
+   
 
     public Product(int id, String name, int price) {
         this.id = id;
@@ -34,7 +34,7 @@ public class Product {
     }
     public String toString()
     {
-        return "ID\t: "+this.id+"Name\t: "+this.name+"Price\t: "+this.price;
+        return "ID\t: "+this.id+"\tName\t: "+this.name+"\tPrice\t: "+this.price;
     }
 
     public int getId() {

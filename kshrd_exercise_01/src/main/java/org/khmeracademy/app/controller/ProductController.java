@@ -22,7 +22,7 @@ public class ProductController {
     @RequestMapping({"/", "/index"})
     public String index(){
         for(Product p:productService.getAllProduct()){
-            System.out.println(p.toString);
+            System.out.println(p.toString());
         }
         return "index";
     }
