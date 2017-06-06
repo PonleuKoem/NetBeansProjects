@@ -24,6 +24,7 @@ public class PersonServiceImp implements PersonService {
     @Override
     public ArrayList<Person> getAllPerson() {
         return personRepository.getAllPerson();
+        //this is get all person
     }
    
 }
