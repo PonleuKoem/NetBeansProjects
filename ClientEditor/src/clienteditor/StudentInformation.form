@@ -123,10 +123,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane6" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -213,7 +215,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane1">
+        <Component class="javax.swing.JTextPane" name="txtid">
         </Component>
       </SubComponents>
     </Container>
@@ -224,7 +226,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane2">
+        <Component class="javax.swing.JTextPane" name="txtadd">
         </Component>
       </SubComponents>
     </Container>
@@ -235,7 +237,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane3">
+        <Component class="javax.swing.JTextPane" name="txtfname">
         </Component>
       </SubComponents>
     </Container>
@@ -246,7 +248,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane4">
+        <Component class="javax.swing.JTextPane" name="txtsub">
         </Component>
       </SubComponents>
     </Container>
@@ -257,7 +259,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane5">
+        <Component class="javax.swing.JTextPane" name="txtlname">
         </Component>
       </SubComponents>
     </Container>
@@ -268,7 +270,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane6">
+        <Component class="javax.swing.JTextPane" name="txtclass">
         </Component>
       </SubComponents>
     </Container>
@@ -279,7 +281,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane7">
+        <Component class="javax.swing.JTextPane" name="txtgender">
         </Component>
       </SubComponents>
     </Container>
@@ -290,7 +292,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextPane" name="jTextPane8">
+        <Component class="javax.swing.JTextPane" name="txtsession">
         </Component>
       </SubComponents>
     </Container>

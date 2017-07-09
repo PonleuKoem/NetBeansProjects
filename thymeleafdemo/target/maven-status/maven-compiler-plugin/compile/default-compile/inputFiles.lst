@@ -1,3 +1,7 @@
-C:\Users\User\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\Greeting.java
-C:\Users\User\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\ThymeleafController.java
-C:\Users\User\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\ThymeleafdemoApplication.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\service\ArticleService.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\model\Article.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\repository\ArticleRepository.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\repository\ArticleRepositoryimpl.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\ArticleMangementApplication.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\controller\ArticleController.java
+C:\Users\UC\Documents\NetBeansProjects\thymeleafdemo\src\main\java\com\example\demo\service\ArticleServiceimpl.java

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Article Management System</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .list-none{
+                list-style-type: none;
+                min-width: 0px;
+            }
+            .p-active{
+                color: red;
+            }
+        </style>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('article?lang=' + selectedOption);
+                }
+            });
+        });
+        </script>
+
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>                        
+              </button>
+              <a class="navbar-brand" href="#">Article Management</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/article" th:text="#{lang.home}">Home</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Page 1-1</a></li>
+                    <li><a href="#">Page 1-2</a></li>
+                    <li><a href="#">Page 1-3</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{lang.lang}">LANG<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a th:href="@{/article}+'?lang=en'" th:text="#{lang.eng}">ENG</a></li>
+                    <li><a th:href="@{/article}+'?lang=kh'" th:text="#{lang.kh}">KH</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="container well">
+            <div class="panel">
+                <div class="col-md-1">
+                    <a th:href="@{/article/savepage}" class="btn btn-sm btn-warning">ADD NEW</a>
+
+                </div>
+                <div class="col-md-11 float-right">
+                    <div class="col-md-3">
+                        <select name="" id="" class="form-control">
+                            <option value="">All Cate</option>
+                            <option value="1">Technology</option>
+                            <option value="2">History</option>
+                            <option value="3">Geography</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Search..." />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" id="" class="btn btn-info" value="Search"/>
+                    </div>
+                </div>
+                <!-- <div class="col-md-2">
+                    <ul class="nav"><li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Display By<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a th:href="@{/article/pagination/{page}/view(page=${page}, limit=5)}">5</a></li>
+                        <li><a th:href="@{/article/pagination/{page}/view(page=${page}, limit=10)}">10</a></li>
+                        <li><a th:href="@{/article/pagination/{page}/view(page=${page}, limit=20)}">20</a></li>
+                        <li><a th:href="@{/article/pagination/{page}/view(page=${page}, limit=50)}">50</a></li>
+                      </ul>
+                    </li></ul>
+                </div> -->
+                <table class="table table-responsive table-hover">
+                    <div class="col-md-12">
+                        <tr>
+                            <th th:text="#{form.article.id}">id</th>
+                            <th th:text="#{form.article.title}">Title</th>
+                            <th th:text="#{form.article.description}">Description</th>
+                            <th th:text="#{form.article.author}">Author</th>
+                            <th th:text="#{form.article.category}">Category</th>
+                            <th th:text="#{form.article.thumbnail}">Thumbnail</th>
+                            <th th:text="#{form.article.action}">Action</th>
+                        </tr>
+                        <tr th:each="article : ${articles}" th:object="${article}">
+                            <td th:text="*{id}" class="align-middle"></td>
+                            <td th:text="*{title}" class="align-middle"></td>
+                            <td th:text="*{description}"></td>
+                            <td th:text="*{author}"></td>
+                            <td th:text="*{category.name}"></td>
+                            <td >
+                                <img th:src="*{thumbnail}" width="80px"/>
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    <ul class="pull-left nav">
+                                        <li class="dropdown">
+                                          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Action<span class="caret"></span></a>
+                                          <ul class="dropdown-menu">
+                                            <li><a th:href="@{/article/view(id=*{id})}">View</a></li>
+                                            <li><a th:href="@{/article/updatepage/(id=*{id})}">Update</a></li>
+                                            <li><a th:href="@{/article/remove/{id}(id=*{id})}">Delete</a></li>
+
+                                          </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+                    
+                </table>
+                
+            </div>
+        </div>
+    </body>
+</html>

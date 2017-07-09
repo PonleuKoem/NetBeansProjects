@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Article Management System</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            .list-none{
+                list-style-type: none;
+                min-width: 0px;
+            }
+            .p-active{
+                color: red;
+            }
+        </style>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function() {
+            /*<![CDATA[*/
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('article?lang=' + selectedOption);
+                    }
+                });
+                $("#search").click(function(){
+                           // this.remove(); 
+                    var selected = $("#category").val();
+                    var name=$('#name-search').val().toString();
+                    
+                    // $('#name-search').blur(function(){
+                    //     name=$('#name-search').val();
+                    //     alert('Name'+name);
+                    // });
+                    if (name == '' && selected ==''){
+                        $("#output-error").text("Please Input To Search");
+                    }else{
+                            if (name!='') {
+                                name=name;
+                            }else{
+                                name='';
+                            }
+                            //window.location.replace([['@{/article/pagination/{page}/view(page=${page}, limit=5)}']])
+                            var url      = window.location.href;
+                            var url1;
+                            if (selected != ''){
+                                url1 = '/article/pagination/view'+'?page=1'+'&limit='+[[${filter.limit}]]+'&id='+selected+'&name='+name;
+                            }else{
+                                url1 = '/article/pagination/view'+'?page=1'+'&limit='+[[${filter.limit}]]+'&name='+name;
+                            };
+                            
+                            
+                            // alert(""+name);
+                            window.location.replace(url1);
+                            };
+                        });
+                });
+            /*]]>*/
+        </script>
+
+    </head>
+    <body>
+        <div class="page">
+            <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                  </button>
+                  <a class="navbar-brand" href="#">Article Management</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/article" th:text="#{lang.home}">Home</a></li>                
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{lang.lang}">LANG<span class="caret"></span></a>
+                      <ul class="dropdown-menu" >
+                        <li><a th:href="${filter.id >0 }?@{__${#httpServletRequest.requestURI}__
+                                                        (lang=en, page=${filter.page}, limit=${filter.limit}, id=${filter.id}, name=${filter.name})}:
+                                                        @{__${#httpServletRequest.requestURI}__(lang=en, page=${filter.page}, limit=${filter.limit}, name=${filter.name})}" th:text="#{lang.eng}">ENG</a></li>
+                        <li><a th:href="${filter.id >0 }?@{__${#httpServletRequest.requestURI}__
+                                                        (lang=kh, page=${filter.page}, limit=${filter.limit}, id=${filter.id}, name=${filter.name})}:
+                                                        @{__${#httpServletRequest.requestURI}__
+                                                        (lang=kh, page=${filter.page}, limit=${filter.limit}, name=${filter.name})}" th:text="#{lang.kh}">KH</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span><i class="fa fa-user-circle"></i> <span sec:authentication="name"></span></span><!-- <span class="caret"></span> --></a>
+                      <ul class="dropdown-menu">
+                        <li><a th:href="@{/logout}">LOG OUT</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <div class="container well">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <a th:href="@{/article/savepage}" class="btn btn-sm btn-warning" th:text="#{form.article.add}">ADD NEW</a>
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="nav">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Display By <span th:text="${filter.limit}"></span><span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+                                    <li><a th:href="${filter.id >= 1}?@{/article/pagination/view(page=1, limit=5, id=${filter.id}, name=${filter.name})}:@{/article/pagination/view(page=1, limit=5, name=${filter.name})}">5</a></li>
+                                    <li><a th:href="${filter.id >= 1}?@{/article/pagination/view(page=1, limit=10, id=${filter.id}, name=${filter.name})}:@{/article/pagination/view(page=1, limit=10, name=${filter.name})}">10</a></li>
+                                    <li><a th:href="${filter.id >= 1}?@{/article/pagination/view(page=1, limit=20, id=${filter.id}, name=${filter.name})}:@{/article/pagination/view(page=1, limit=20, name=${filter.name})}">20</a></li>
+                                    <li><a th:href="${filter.id >= 1}?@{/article/pagination/view(page=1, limit=50, id=${filter.id}, name=${filter.name})}:@{/article/pagination/view(page=1, limit=50, name=${filter.name})}">50</a></li>
+                                    <!-- <li><a th:href="${filter.id >= 1}?@{/article/pagination/view(filter=${filter})}">100</a></li> -->
+                                  </ul>
+                                </li>
+                            </ul>
+                        </div>
+                            
+                    </div>
+                    <div class="col-md-6">
+                        <form> <!-- th:action="@{" method="POST" -->
+                            <div class="col-md-5">
+                                <select name="category" id="category" class="form-control">
+                                    <option value="">All Categories</option>
+                                    <option value="1">Technology</option>
+                                    <option value="2">History</option>
+                                    <option value="3">Geography</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" id="name-search" class="form-control" placeholder="Search..." />
+                                <p id="output-error" class="text-danger"></p> 
+                            </div>
+                            <div class="col-md-2">
+                                <a id="search" href="#" class="btn btn-info" onclick=""><i class="fa fa-search fa-fw"></i></a><br/>  
+                                                      
+                            </div> 
+                            <div class="col-md-12 text-right">
+                               
+                            </div>
+                        </form>
+                    </div>
+                    
+                <div class="panel col-md-12">                
+                    <table class="table table-responsive table-hover">
+                        <div class="col-md-12">
+                            <thead>
+                                <tr>
+                                    <th th:text="#{form.article.id}">id</th>
+                                    <th th:text="#{form.article.title}">Title</th>
+                                    <th th:text="#{form.article.description}">Description</th>
+                                    <th th:text="#{form.article.author}">Author</th>
+                                    <th th:text="#{form.article.category}">Category</th>
+                                    <th th:text="#{form.article.thumbnail}">Thumbnail</th>
+                                    <th th:text="#{form.article.action}">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  th:if="${#lists.size(article) != 0}"  th:each="article : ${article}" th:object="${article}">
+                                    <td th:text="*{id}" style="vertical-align: middle;" class="data-t"></td>
+                                    <td th:text="*{title}" style="vertical-align: middle;"></td>
+                                    <td th:text="*{#strings.substring(description,0,170)}  " style="vertical-align: middle;" class="data-t"></td>
+                                    <td th:text="*{author}" style="vertical-align: middle;"></td>
+                                    <td th:text="*{category.name}" style="vertical-align: middle;"></td>
+                                    <td style="vertical-align: middle;">
+                                        <img th:src="*{thumbnail}" width="80px"/>
+                                    </td>
+                                    <td class="col-md-2" style="vertical-align: middle;">
+                                        <div class="">
+                                            <div class="col-md-4">
+                                                <a class="btn btn-warning" th:href="@{/article/view(id=*{id})}"><i class="fa fa-eye"></i></a>
+                                                
+                                            </div>
+                                            <div class="col-md-4">
+                                                
+                                                <a class="btn btn-warning" th:href="@{/article/updatepage/(id=*{id})}"><i class="fa fa-pencil"></i></a>
+                                            </div>
+                                            <div class="col-md-4" sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a class="btn btn-warning" th:href="@{/article/remove/{id}(id=*{id})}"> <i class="fa fa-trash-o"></i></a>
+                                            </div>
+                                            <!-- <ul class="pull-left nav">
+                                                <li class="dropdown">
+                                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Action<span class="caret"></span></a>
+                                                  <ul class="dropdown-menu">
+                                                    <li><a th:href="@{/article/view(id=*{id})}">View</a></li>
+                                                    <li><a th:href="@{/article/updatepage/(id=*{id})}">Update</a></li>
+                                                    <li><a th:href="@{/article/remove/{id}(id=*{id})}">Delete</a></li>
+
+                                                  </ul>
+                                                </li>
+                                            </ul> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr th:unless="${#lists.size(article) != 0}">
+                                        <td colspan="7" style="vertical-align: middle;"><h1>No Record to show!!</h1></td>
+                                </tr>
+                            </tbody>
+                        </div>
+                        
+                    </table>
+
+                    <!-- ++++++++++Paginaton+++++++++++++ -->
+                    <div class="col-md-12 text-center">
+                            <ul th:if="${#lists.size(article) != 0}" class="pagination" th:object="${filter}">
+                                
+                                
+                                <li><a th:href="${filter.page}==1?'#':
+                                            (${filter.id gt 0}?
+                                            @{/article/pagination/view(page=1, limit=*{limit}, id=*{id}, name=*{name})}:
+                                            @{/article/pagination/view(page=1, limit=*{limit}, name=*{name})})" 
+                                        th:class="btn"><i class="fa fa-angle-double-left"></i></a></li>
+                                <li><a th:href="*{page}==1?@{#}:
+                                            (*{id gt 0}?
+                                            @{/article/pagination/view(page=*{page-1}, limit=*{limit}, id=*{id}, name=*{name})}:
+                                            @{/article/pagination/view(page=*{page-1}, limit=*{limit}, name=*{name})})" 
+                                        th:class="*{page==1}?'btn disabled':'btn'"><i class="fa fa-arrow-left"></i></a></li>
+                                <li th:each="i :${#numbers.sequence(1, filter.pg)}">
+                                    <a th:if="${filter.page gt i-5 and filter.page lt i+5}" 
+                                        th:text="${filter.page gt i+2 or filter.page lt i-2}?'.':${i}" 
+                                        th:href="${filter.page gt i+2 or filter.page lt i-2}?@{#}:
+                                                (*{id gt 0}?
+                                                @{/article/pagination/view(page=${i}, limit=*{limit}, id=*{id}, name=*{name})}:
+                                                @{/article/pagination/view(page=${i}, limit=*{limit},name=*{name})})"
+                                        th:style="${filter.page ==i}?'color:red':'color:black'" th:class="${filter.page==i}?'btn disabled':'btn'"></a>                                
+                                </li>
+                                <li><a th:href="*{page}>=*{pg}?@{#}:
+                                                (*{id gt 0}?
+                                                @{/article/pagination/view(page=*{page+1}, limit=*{limit}, id=*{id}, name=*{name})}:
+                                                @{/article/pagination/view(page=*{page+1}, limit=*{limit}, name=*{name})})" 
+                                        th:class="*{page==pg}?'btn disabled':'btn'"><i class="fa fa-arrow-right"></i></a></li>
+                                <li><a th:href="*{page}>=*{pg}?@{#}:
+                                                (*{id gt 0}?
+                                                @{/article/pagination/view(page=*{pg}, limit=*{limit}, id=*{id}, name=*{name})}:
+                                                @{/article/pagination/view(page=*{pg}, limit=*{limit}, name=*{name})})" 
+                                        th:class="btn"><i class="fa fa-angle-double-right"></i></a></li>
+                                
+                                
+                            </ul>
+                            
+                    </div>
+                    <!-- ++++++++++Paginaton+++++++++++++ -->
+                    <div class="col-md-12">
+                        <span th:text="${'Show '+filter.limit}"></span>
+                        <span th:text="${'/ '+filter.pg*filter.limit}+' records'"></span>
+                    </div>
+                </div>
+            </div> 
+            <!-- +++++++++++++++++++++++++++++++++++++++++++++++footer++++++++++++++++++++++++++++++ -->
+            <div class="col-md-12 panel-footer">
+                <p class="text-center">@All Right Reserve Koem Ponleu</p>
+            </div>
+        </div>
+</body>
+</html>

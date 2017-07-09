@@ -5,6 +5,12 @@
  */
 package clienteditor;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author UC
@@ -37,21 +43,21 @@ public class StudentInformation extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txtid = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
+        txtadd = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextPane3 = new javax.swing.JTextPane();
+        txtfname = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPane4 = new javax.swing.JTextPane();
+        txtsub = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextPane5 = new javax.swing.JTextPane();
+        txtlname = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextPane6 = new javax.swing.JTextPane();
+        txtclass = new javax.swing.JTextPane();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextPane7 = new javax.swing.JTextPane();
+        txtgender = new javax.swing.JTextPane();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTextPane8 = new javax.swing.JTextPane();
+        txtsession = new javax.swing.JTextPane();
         jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
@@ -81,21 +87,21 @@ public class StudentInformation extends javax.swing.JFrame {
 
         jLabel9.setText("Address");
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(txtid);
 
-        jScrollPane2.setViewportView(jTextPane2);
+        jScrollPane2.setViewportView(txtadd);
 
-        jScrollPane3.setViewportView(jTextPane3);
+        jScrollPane3.setViewportView(txtfname);
 
-        jScrollPane4.setViewportView(jTextPane4);
+        jScrollPane4.setViewportView(txtsub);
 
-        jScrollPane5.setViewportView(jTextPane5);
+        jScrollPane5.setViewportView(txtlname);
 
-        jScrollPane6.setViewportView(jTextPane6);
+        jScrollPane6.setViewportView(txtclass);
 
-        jScrollPane7.setViewportView(jTextPane7);
+        jScrollPane7.setViewportView(txtgender);
 
-        jScrollPane8.setViewportView(jTextPane8);
+        jScrollPane8.setViewportView(txtsession);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel10.setText("Student Information");
@@ -226,10 +232,11 @@ public class StudentInformation extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel7))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -289,6 +296,21 @@ public class StudentInformation extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new StudentInformation().setVisible(true);
+                    try{
+                        Class.forName("org.sqlite.JDBC");
+                        Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\UC\\Documents\\NetBeansProjects\\StaffMS\\ClientEditor\\StudentManagement.sqlite");
+
+                        Statement stm = conn.createStatement();
+                        ResultSet rs=stm.executeQuery("Select * from TblStudents");
+                        while(rs.next()){
+                            String id = rs.getString("id");
+                            //txtname.setText(id);
+                            //System.out.println(txtid);
+                        }
+                        conn.close();
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(null, e);
+                    }
             }
         });
     }
@@ -321,13 +343,13 @@ public class StudentInformation extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane2;
-    private javax.swing.JTextPane jTextPane3;
-    private javax.swing.JTextPane jTextPane4;
-    private javax.swing.JTextPane jTextPane5;
-    private javax.swing.JTextPane jTextPane6;
-    private javax.swing.JTextPane jTextPane7;
-    private javax.swing.JTextPane jTextPane8;
+    private javax.swing.JTextPane txtadd;
+    private javax.swing.JTextPane txtclass;
+    private javax.swing.JTextPane txtfname;
+    private javax.swing.JTextPane txtgender;
+    private javax.swing.JTextPane txtid;
+    private javax.swing.JTextPane txtlname;
+    private javax.swing.JTextPane txtsession;
+    private javax.swing.JTextPane txtsub;
     // End of variables declaration//GEN-END:variables
 }
